@@ -48,6 +48,22 @@
 			return [getPlayerPosition(id).x - getFieldCorner().x, getPlayerPosition(id).y - getFieldCorner().y]
 	}
 
+	function getVolume(id1, id2) {
+		result = (175 - getPlayerDistance(id1, id2)) * 0.571428;
+		if (result < 0 ) {
+			return 0;
+		} else {
+			return result;
+		}
+	}
+
+	function getPlayerDistance(id1, id2) {
+		player1 = getRelativePosition(id1);
+		player2 = getRelativePosition(id2);
+
+		return Math.sqrt(Math.pow(player2[1] - player1[1],2 ) + Math.pow(player2[0] - player1[0], 2));
+	}
+
 	function ensureBounds(id) {
 		ray = getRelativePosition(id)
 		if (ray[0] < 0 || ray[1] < 0 || ray[0] > getFieldCorner().width || ray[1] > getFieldCorner().height) {
@@ -100,7 +116,7 @@
 		for (player in someJsonHere) {
 			if (playerArray.includes(player.id)) {
 					updatePlayerPosition(player);
-			} else if ( someFuckerLeft ){
+			} else if ( someGuyLeft ){
 				//Delete the player
 			} else  {
 				//create new element with player ID and set position x and y
